@@ -3483,6 +3483,12 @@ struct RIL_Env {
 
     void (*RequestTimedCallback) (RIL_TimedCallback callback,
                                    void *param, const struct timeval *relativeTime);
+
+    /**
+     * Remove user-specified callback function
+     */
+    void (*RemoveTimedCallback) (void *callbackInfo);
+
 };
 
 
@@ -3546,8 +3552,15 @@ void RIL_onUnsolicitedResponse(int unsolResponse, const void *data,
  * @param relativeTime a relative time value at which the callback is invoked
  */
 
-void RIL_requestTimedCallback (RIL_TimedCallback callback,
-                               void *param, const struct timeval *relativeTime);
+void* RIL_requestTimedCallback (RIL_TimedCallback callback,
+                                void *param, const struct timeval *relativeTime);
+
+/**
+ * Remove user-specified callback function
+ *  @param callbackInfo  Pointer returned to the caller when timer was scheduled
+ */
+
+void RIL_removeTimedCallback(void *callbackInfo);
 
 
 #endif /* RIL_SHLIB */
